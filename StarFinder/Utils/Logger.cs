@@ -23,7 +23,7 @@ namespace StarFinder.Utils
         {
             const string logTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] [{SourceContext}] {Message:lj}{NewLine}{Exception}";
 
-            LoggingLevelSwitch levelSwitch = new LoggingLevelSwitch {MinimumLevel = LogEventLevel.Debug};
+            LoggingLevelSwitch levelSwitch = new LoggingLevelSwitch {MinimumLevel = Config.LogLevel};
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.ControlledBy(levelSwitch)
