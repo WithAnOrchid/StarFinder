@@ -15,7 +15,7 @@ namespace StarFinder
         private readonly IMyLogger _logger;
         private List<PID> _allWorkers;
         private long _totalKeysTried;
-        private CancellationTokenSource _cts;
+        //private CancellationTokenSource _cts;
 
         public ActorManager(IMyLogger logger)
         {
@@ -27,7 +27,7 @@ namespace StarFinder
 
         public Task ReceiveAsync(IContext context)
         {
-            _logger.Info($"got msg {context.Message}");
+           // _logger.Info($"got msg {context.Message}");
             switch (context.Message)
             {
                 case Started _:
@@ -45,6 +45,7 @@ namespace StarFinder
                     {
                        // _scheduler.ScheduleTellRepeatedly(TimeSpan.FromSeconds(5), msg.Duration, pid,
                        //     new RequestNumKeysTried(), out _cts);
+                       context.Send(pid, new RequestNumKeysTried());
                     }
                     break;
                 case ResponseNumKeysTried msg:

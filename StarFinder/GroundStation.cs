@@ -33,15 +33,17 @@ namespace StarFinder
             int count = await task;
             _logger.Info($"Successfully loaded {count} addresses");
 
-            //_actorSystem.Root.Send(_actorManager, new SpawnWorker(1));
+            _actorSystem.Root.Send(_actorManager, new SpawnWorker(20));
             //_actorSystem.Root.Send(_actorManager, new ShowStatistics(TimeSpan.FromSeconds(10)));
 
             _ = Task.Run(() =>
               {
                   while (true)
                   {
-                      Task.Delay(5000).Wait();
-                      //_actorSystem.Root.Send(_actorManager, new RequestWorkerCount());
+                      Task.Delay(5200).Wait();
+                      _actorSystem.Root.Send(_actorManager, new RequestWorkerCount());
+                      _actorSystem.Root.Send(_actorManager, new ShowStatistics(TimeSpan.FromSeconds(10)));
+                      _actorSystem.Root.Send(_actorManager, new ShowTotalKeysTried());
                   }
               });
         }

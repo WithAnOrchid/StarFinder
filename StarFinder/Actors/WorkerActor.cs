@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.SymbolStore;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NBitcoin;
 using Proto;
 using StarFinder.Messages;
@@ -22,7 +20,6 @@ namespace StarFinder.Actors
 
         public Task ReceiveAsync(IContext context)
         {
-            _logger.Info($"got msg {context.Message}");
             switch (context.Message)
             {
                 case Started _:
@@ -43,7 +40,7 @@ namespace StarFinder.Actors
                     StartCrack(context);
                     break;
                 case RequestNumKeysTried _:
-                    context.Respond(new ResponseNumKeysTried(NumKeysTried));
+                    context.Send(context.Parent!, new ResponseNumKeysTried(NumKeysTried));
                     break;
 
             }
